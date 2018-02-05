@@ -1,0 +1,15 @@
+{
+  "name": "books-library",
+  "version": "1.0.0",
+  "description": "Exercise 2 - books library with Hapi.js, Sequelize.js and a PostgreSQL database.",
+  "main": "src/server.js",
+  "repository": "git@github.com:saurav-techuniv2018/books-library.git",
+  "author": "Saurav Sahu <sauravsahu.12@live.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "jest": "^22.1.4"
+  }
+}
