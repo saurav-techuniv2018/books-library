@@ -12,6 +12,7 @@
     "start": "node src/server.js"
   },
   "devDependencies": {
+    "@types/sequelize": "^4.27.4",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.7.0",
