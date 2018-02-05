@@ -13,7 +13,7 @@ const replaceBooksInDatabase = books => new Promise((resolve, reject) => {
       resolve(newBooks);
     })
     .catch(() => {
-      reject(new Error('Could not add users to database.'));
+      reject(new Error('Could not add books to database.'));
     });
 });
 

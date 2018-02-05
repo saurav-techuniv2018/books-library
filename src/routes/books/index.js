@@ -4,6 +4,8 @@ const constants = require('../../constants');
 const joinBooksAndRatings = require('../../helpers/joinBooksAndRatings');
 const models = require('../../../models');
 const replaceBooksInDatabase = require('../../helpers/replaceBooksInDatabase');
+const like = require('./like');
+
 
 module.exports = [
   {
@@ -40,7 +42,7 @@ module.exports = [
         .catch(() => {
           response({
             data: {
-              reason: 'Unable to retrieve users.',
+              reason: 'Unable to retrieve books.',
             },
             statusCode: 500,
           });
@@ -81,5 +83,5 @@ module.exports = [
         });
     },
   },
-];
+].concat(like);
 
