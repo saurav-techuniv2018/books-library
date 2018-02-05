@@ -1,4 +1,9 @@
+const rp = require('request-promise');
+
+const constants = require('../../constants');
+const joinBooksAndRatings = require('../../helpers/joinBooksAndRatings');
 const models = require('../../../models');
+const replaceBooksInDatabase = require('../../helpers/replaceBooksInDatabase');
 
 module.exports = [
   {
@@ -36,6 +41,40 @@ module.exports = [
           response({
             data: {
               reason: 'Unable to retrieve users.',
+            },
+            statusCode: 500,
+          });
+        });
+    },
+  },
+  {
+    path: '/books',
+    method: 'POST',
+    handler: (request, response) => {
+      rp({
+        method: 'GET',
+        url: constants.api1,
+      })
+        .then((rpResponse) => {
+          const p = rpResponse;
+          return JSON.parse(rpResponse).books;
+        })
+        .then(books => joinBooksAndRatings(books))
+        .then(newBooks => replaceBooksInDatabase(newBooks))
+        .then((booksEntered) => {
+          if (booksEntered) {
+            response({
+              data: booksEntered,
+              statusCode: 200,
+            });
+          } else {
+            throw new Error('Could not update books information');
+          }
+        })
+        .catch((reason) => {
+          response({
+            data: {
+              reason: reason.message,
             },
             statusCode: 500,
           });
