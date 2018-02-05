@@ -6,6 +6,11 @@
   "repository": "git@github.com:saurav-techuniv2018/books-library.git",
   "author": "Saurav Sahu <sauravsahu.12@live.com>",
   "license": "MIT",
+  "scripts": {
+    "migrate-test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate",
+    "test": "npm run migrate-test && jest --forceExit",
+    "start": "node src/server.js"
+  },
   "devDependencies": {
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -14,6 +19,7 @@
     "sequelize-cli": "^3.2.0"
   },
   "dependencies": {
+    "hapi": "16",
     "pg": "^7.4.1",
     "sequelize": "^4.32.6"
   }
