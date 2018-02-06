@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const likes = sequelize.define('likes', {
     bookId: DataTypes.INTEGER,
-    likes: DataTypes.BOOLEAN,
+    like: DataTypes.BOOLEAN,
   }, {
     classMethods: {
       associate() {
