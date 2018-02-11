@@ -2,21 +2,6 @@ const supertest = require('supertest');
 const models = require('../../../models');
 const server = require('../../../src/server');
 
-beforeEach(() => models.books.create({
-  bookId: 1,
-  name: 'Shall We Tell The President?',
-  author: 'Jeffrey Archer',
-  rating: 3.2,
-}));
-afterEach(() => models.books.destroy({
-  truncate: true,
-  restartIdentity: true,
-})
-  .then(() => models.likes.destroy({
-    truncate: true,
-    restartIdentity: true,
-  })));
-
 describe('route /books', () => {
   describe('method GET /books', () => {
     test('should return a 200 OK statusCode', () =>
@@ -31,24 +16,11 @@ describe('route /books', () => {
     supertest(server.listener)
       .get('/books')
       .then((response) => {
-        expect(Object.keys(response.body.data).length).toBe(1);
+        expect(Object.keys(response.body.data).length).toBe(2);
       })
       .catch((e) => { throw e; }));
 });
-test('should return all books data', () =>
-  supertest(server.listener)
-    .get('/books')
-    .then((response) => {
-      expect(response.body.data['Jeffrey Archer']).toEqual([
-        {
-          author: 'Jeffrey Archer',
-          id: 1,
-          name: 'Shall We Tell The President?',
-          rating: 3.2,
-        },
-      ]);
-    })
-    .catch(console.log));
+
 describe('method POST /books', () => {
   test('should return a 200 OK statusCode', (done) => {
     supertest(server.listener)

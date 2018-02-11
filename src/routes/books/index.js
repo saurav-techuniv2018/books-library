@@ -2,7 +2,6 @@ const rp = require('request-promise');
 
 const constants = require('../../constants');
 const joinBooksAndRatings = require('../../helpers/joinBooksAndRatings');
-const models = require('../../../models');
 const replaceBooksInDatabase = require('../../helpers/replaceBooksInDatabase');
 const like = require('./like');
 const dislike = require('./dislike');
@@ -12,13 +11,12 @@ module.exports = [
     path: '/books',
     method: 'GET',
     handler: (request, response) => {
-      models.books.findAll()
-        .then(result => result.map(row => ({
-          author: row.author,
-          id: row.bookId,
-          name: row.name,
-          rating: row.rating,
-        })))
+      rp({
+        method: 'GET',
+        url: constants.api1,
+      })
+        .then(rpResponse => JSON.parse(rpResponse).books)
+        .then(books => joinBooksAndRatings(books))
         .then((books) => {
           const groupedBooks = books.reduce((group, book) => {
             const groupHolder = group;
@@ -30,6 +28,11 @@ module.exports = [
             groupHolder[book.author].push(book);
             return groupHolder;
           }, {});
+
+          Object.keys(groupedBooks).forEach((key) => {
+            const booksInThisGroup = groupedBooks[key];
+            groupedBooks[key] = booksInThisGroup.sort((a, b) => a.rating >= b.rating);
+          });
 
           return groupedBooks;
         })
