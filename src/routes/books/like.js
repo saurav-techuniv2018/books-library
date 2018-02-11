@@ -26,15 +26,21 @@ module.exports = [
             },
           });
         })
-        .then(() => {
-          response({
-            statusCode: 204,
-          });
-        }, (reason) => {
-          response({
-            data: { reason: reason.message },
-            statusCode: 404,
-          });
+        .then(([bookLike, created]) => {
+          if (!created && !bookLike.like) {
+            bookLike.updateAttributes({
+              like: true,
+            })
+              .then(() => {
+                response({
+                  statusCode: 204,
+                });
+              });
+          } else {
+            response({
+              statusCode: 204,
+            });
+          }
         })
         .catch(() => {
           response({
