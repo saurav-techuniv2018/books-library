@@ -5,6 +5,7 @@ const joinBooksAndRatings = require('../../helpers/joinBooksAndRatings');
 const models = require('../../../models');
 const replaceBooksInDatabase = require('../../helpers/replaceBooksInDatabase');
 const like = require('./like');
+const dislike = require('./dislike');
 
 module.exports = [
   {
@@ -79,5 +80,5 @@ module.exports = [
         });
     },
   },
-].concat(like);
+].concat(like, dislike);
 
