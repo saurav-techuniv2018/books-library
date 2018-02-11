@@ -10,7 +10,13 @@
       "name": "Jest Tests",
       "program": "${workspaceFolder}/node_modules/jest/bin/jest",
       "preLaunchTask": "migrate-test",
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "openOnSessionStart",
+      "args": [
+        "--runInBand",
+      ],
+      "env": {
+        "NODE_ENV": "test"
+      }
     },
     {
       "type": "node",

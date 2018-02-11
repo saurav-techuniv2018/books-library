@@ -5,8 +5,7 @@ module.exports = [
     path: '/books/{bookId}/like',
     method: 'POST',
     handler: (request, response) => {
-      const id = request.params.bookId;
-
+      const id = Number(request.params.bookId);
       models.books.findOne({
         where: {
           bookId: id,
@@ -17,8 +16,14 @@ module.exports = [
             throw new Error(`Could not find book with id: ${id}.`);
           }
 
-          return book.updateAttributes({
-            like: request.payload.like,
+          return models.likes.findOrCreate({
+            where: {
+              bookId: book.bookId,
+            },
+            defaults: {
+              bookId: book.bookId,
+              like: true,
+            },
           });
         })
         .then(() => {

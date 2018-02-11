@@ -6,7 +6,6 @@ const models = require('../../../models');
 const replaceBooksInDatabase = require('../../helpers/replaceBooksInDatabase');
 const like = require('./like');
 
-
 module.exports = [
   {
     path: '/books',
@@ -57,10 +56,7 @@ module.exports = [
         method: 'GET',
         url: constants.api1,
       })
-        .then((rpResponse) => {
-          const p = rpResponse;
-          return JSON.parse(rpResponse).books;
-        })
+        .then(rpResponse => JSON.parse(rpResponse).books)
         .then(books => joinBooksAndRatings(books))
         .then(newBooks => replaceBooksInDatabase(newBooks))
         .then((booksEntered) => {

@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "migrate-test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate",
-    "test": "npm run migrate-test && jest --forceExit",
+    "test": "npm run migrate-test && NODE_ENV=test jest --forceExit",
     "start": "node src/server.js"
   },
   "devDependencies": {

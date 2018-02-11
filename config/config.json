@@ -1,26 +1,23 @@
 {
   "development": {
-    "username": "saurav",
+    "username": "database_admin",
     "password": null,
     "database": "books_dev",
     "host": "127.0.0.1",
-    "port": 9000,
     "dialect": "postgres"
   },
   "test": {
-    "username": "saurav",
+    "username": "database_admin",
     "password": null,
     "database": "books_test",
     "host": "127.0.0.1",
-    "port": 9000,
     "dialect": "postgres"
   },
   "production": {
-    "username": "saurav",
+    "username": "database_admin",
     "password": null,
     "database": "books",
     "host": "127.0.0.1",
-    "port": 9000,
     "dialect": "postgres"
   }
 }
