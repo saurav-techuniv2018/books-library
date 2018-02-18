@@ -1,9 +1,23 @@
+const joi = require('joi');
+
 const models = require('../../../models');
 
 module.exports = [
   {
     path: '/books/{bookId}/like',
     method: 'POST',
+    config: {
+      description: 'Set the like attribute for the specified book to true',
+      tags: ['api'],
+      validate: {
+        params: {
+          bookId: joi
+            .number()
+            .required()
+            .description('bookId for the book to like'),
+        },
+      },
+    },
     handler: (request, response) => {
       const id = Number(request.params.bookId);
       models.books.findOne({

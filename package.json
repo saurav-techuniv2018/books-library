@@ -22,12 +22,13 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "hapi": "16",
-    "hapi-swagger": "7.0.0",
-    "inert": "4",  
-    "vision": "4.1.1",
+    "hapi": "16.6.2",
+    "hapi-swagger": "8.0.0",
+    "inert": "4",
+    "joi": "9",
     "pg": "^7.4.1",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.32.6"
+    "sequelize": "^4.32.6",
+    "vision": "4.1.1"
   }
 }
