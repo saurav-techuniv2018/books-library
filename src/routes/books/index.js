@@ -10,6 +10,10 @@ module.exports = [
   {
     path: '/books',
     method: 'GET',
+    config: {
+      description: 'Get all the books from External API, combined with ratings, grouped by authors and sorted in descending order by rating',
+      tags: ['api'],
+    },
     handler: (request, response) => {
       rp({
         method: 'GET',
@@ -55,6 +59,10 @@ module.exports = [
   {
     path: '/books',
     method: 'POST',
+    config: {
+      description: 'Update database with books from the external API',
+      tags: ['api'],
+    },
     handler: (request, response) => {
       rp({
         method: 'GET',
