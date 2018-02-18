@@ -1,4 +1,7 @@
 const hapi = require('hapi');
+const swagger = require('hapi-swagger');
+const inert = require('inert');
+const vision = require('vision');
 
 const allRoutes = require('./routes');
 
@@ -9,6 +12,12 @@ server.connection({
   host: 'localhost',
   port,
 });
+
+server.register([
+  inert,
+  vision,
+  swagger,
+]);
 
 server.route(allRoutes);
 
