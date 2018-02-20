@@ -1,15 +1,11 @@
 const replaceBooksInDatabase = require('../../src/helpers/replaceBooksInDatabase');
+const { addSampleEntries, removeAllEntries } = require('../setup');
 
-const models = require('../../models');
-
-beforeEach(() => models.books.create({
-  bookId: 1,
-  name: 'Shall We Tell The President?',
-  author: 'Jeffrey Archer',
-  rating: 3.2,
-}));
-afterEach(() => models.books.destroy({ truncate: true }));
-afterAll(() => models.close());
+beforeEach(() =>
+  removeAllEntries()
+    .then(() => addSampleEntries()));
+afterEach(() =>
+  removeAllEntries());
 
 describe('replaceBooksInDatabase', () => {
   test('should return a promise', () => {

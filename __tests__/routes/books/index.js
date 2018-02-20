@@ -1,44 +1,29 @@
 const supertest = require('supertest');
-const models = require('../../../models');
 const server = require('../../../src/server');
 
 describe('route /books', () => {
   describe('method GET /books', () => {
-    test('should return a 200 OK statusCode', () =>
+    test('should return a 200 OK statusCode', (done) => {
+      expect.assertions(1);
       supertest(server.listener)
         .get('/books')
         .then((response) => {
           expect(response.body.statusCode).toBe(200);
+          done();
         })
-        .catch(console.log));
+        .catch((e) => { throw e; });
+    }, 10000);
   });
-  test('should return all books', () =>
-    supertest(server.listener)
-      .get('/books')
-      .then((response) => {
-        expect(Object.keys(response.body.data).length).toBe(2);
-      })
-      .catch((e) => { throw e; }));
-});
 
-describe('method POST /books', () => {
-  test('should return a 200 OK statusCode', (done) => {
-    supertest(server.listener)
-      .post('/books')
-      .then((response) => {
-        expect(response.body.statusCode).toBe(200);
-        done();
-      })
-      .catch(console.log);
-  });
-  test('should add all books to database from external APIs', (done) => {
-    supertest(server.listener)
-      .post('/books')
-      .then(() => models.books.count())
-      .then((booksCount) => {
-        expect(booksCount).toBe(12);
-        done();
-      })
-      .catch(console.log);
+  describe('method POST /books', () => {
+    test('should return a 200 OK statusCode', (done) => {
+      supertest(server.listener)
+        .post('/books')
+        .then((response) => {
+          expect(response.body.statusCode).toBe(200);
+          done();
+        })
+        .catch((e) => { throw e; });
+    }, 10000);
   });
 });
