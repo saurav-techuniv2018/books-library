@@ -1,41 +1,20 @@
 const supertest = require('supertest');
-const models = require('../../../models');
 const server = require('../../../src/server');
+const { addSampleEntries, removeAllEntries } = require('../../setup');
 
-beforeEach(() => models.books.create({
-  bookId: 1,
-  name: 'Shall We Tell The President?',
-  author: 'Jeffrey Archer',
-  rating: 3.2,
-}));
+beforeEach(() =>
+  removeAllEntries()
+    .then(() => addSampleEntries()));
 afterEach(() =>
-  models.likes.destroy({
-    truncate: true,
-    restartIdentity: true,
-  })
-    .then(() => models.books.destroy({
-      truncate: true,
-      restartIdentity: true,
-    })));
+  removeAllEntries());
 
 describe('route /books/{bookId}/like', () => {
-  test('should return a 204 statusCode', () =>
+  test('should return a 204 statusCode', done =>
     supertest(server.listener)
-      .post('/books/1/like')
+      .post('/books/10/like')
       .then((response) => {
         expect(response.body.statusCode).toBe(204);
-      })
-      .catch((reason) => { throw reason; }));
-  test('should set like to true', () =>
-    supertest(server.listener)
-      .post('/books/1/like')
-      .then(() => models.likes.findOne({
-        where: {
-          bookId: 1,
-        },
-      }))
-      .then((bookLike) => {
-        expect(bookLike.like).toBe(true);
+        done();
       })
       .catch((reason) => { throw reason; }));
 });
