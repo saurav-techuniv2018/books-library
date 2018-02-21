@@ -120,9 +120,23 @@ module.exports = [
             });
           });
 
+          // Group books
+          const groupedBooks = booksAndLikesCombined.reduce((group, book) => {
+            const groupHolder = group;
+
+            if (groupHolder[book.author] === undefined) {
+              groupHolder[book.author] = [];
+            }
+
+            groupHolder[book.author].push(book);
+            return groupHolder;
+          }, {});
+
           response({
             statusCode: 200,
-            data: booksAndLikesCombined,
+            data: {
+              groups: groupedBooks,
+            },
           });
         })
         .catch(() => {
