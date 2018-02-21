@@ -10,13 +10,13 @@ describe('joinBooksAndRatings', () => {
       joinBooksAndRatings([
         {
           Author: 'J K Rowling',
-          id: 2,
+          id: 20,
           Name: 'Harry Potter and the Chamber of Secrets (Harry Potter, #2)',
         }])
         .then((books) => {
           expect(books).toEqual([{
             author: 'J K Rowling',
-            bookId: 2,
+            bookId: 20,
             name: 'Harry Potter and the Chamber of Secrets (Harry Potter, #2)',
             rating: 4.38,
           }]);
