@@ -74,7 +74,6 @@ module.exports = [
         .then((booksEntered) => {
           if (booksEntered) {
             response({
-              data: booksEntered,
               statusCode: 200,
             });
           } else {
