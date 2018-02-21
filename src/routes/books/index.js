@@ -99,15 +99,13 @@ module.exports = [
       tags: ['api'],
     },
     handler: (request, response) => {
-      const allBooksPromise = models.books.findAll();
-      const allLikesPromise = models.likes.findAll();
+      const allBooksPromise = models.books.findAll({ order: ['bookId'] });
+      const allLikesPromise = models.likes.findAll({ order: ['bookId'] });
 
       Promise.all([allBooksPromise, allLikesPromise])
         .then(([books, likes]) => {
-          const sortByBookId = (row1, row2) => row1.bookId > row2.bookId;
-
-          const booksSortedByBookId = books.sort(sortByBookId);
-          const likesSortedByBookId = likes.sort(sortByBookId);
+          const booksSortedByBookId = books;
+          const likesSortedByBookId = likes;
 
           const booksAndLikesCombined = [];
           booksSortedByBookId.forEach((book, index) => {
